@@ -1,0 +1,109 @@
+[gd_scene load_steps=13 format=3 uid="uid://bs60m4ibunwxm"]
+
+[ext_resource type="Script" path="res://simBeginScene.cs" id="1_5m7mb"]
+[ext_resource type="Texture2D" uid="uid://5717s2a6taks" path="res://Textures/kennyDK4.png" id="2_g5cex"]
+[ext_resource type="PackedScene" uid="uid://dgxwvehspcn4u" path="res://Models381/SpringModel.tscn" id="2_q6vtc"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hriwi"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_7ivkc"]
+sky_material = SubResource("ProceduralSkyMaterial_hriwi")
+
+[sub_resource type="Environment" id="Environment_s54ut"]
+background_mode = 2
+sky = SubResource("Sky_7ivkc")
+tonemap_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_moc27"]
+albedo_texture = ExtResource("2_g5cex")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_acc3n"]
+material = SubResource("StandardMaterial3D_moc27")
+size = Vector2(4, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cjhla"]
+albedo_color = Color(0.113725, 0.121569, 0.027451, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_0ckp3"]
+material = SubResource("StandardMaterial3D_cjhla")
+size = Vector3(0.2, 0.2, 0.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m4nci"]
+albedo_color = Color(0.486275, 0.501961, 0.968627, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_cwtfe"]
+material = SubResource("StandardMaterial3D_m4nci")
+radius = 0.125
+height = 0.25
+
+[node name="simBeginScene" type="Node3D"]
+script = ExtResource("1_5m7mb")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.266936, -0.755779, 0.59795, -3.9393e-08, 0.620464, 0.784235, -0.963714, 0.209341, -0.165624, 1.3129, 2.44311, -0.729442)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_s54ut")
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.736226, 0)
+mesh = SubResource("PlaneMesh_acc3n")
+
+[node name="Anchor" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.06695, 0)
+mesh = SubResource("BoxMesh_0ckp3")
+
+[node name="Ball" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.476908, 0)
+mesh = SubResource("SphereMesh_cwtfe")
+
+[node name="SpringModel" parent="." instance=ExtResource("2_q6vtc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.130846, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.791426, -0.00202056, 0.611262, -0.0096111, 0.99983, 0.0157489, -0.611189, -0.018339, 0.791272, 1.59351, 0.767489, 2.21298)
+
+[node name="KElabel" type="Label" parent="."]
+offset_left = 79.0
+offset_top = 39.0
+offset_right = 171.0
+offset_bottom = 79.0
+text = "Kinetic"
+
+[node name="KEValue" type="Label" parent="KElabel"]
+layout_mode = 0
+offset_left = -63.0
+offset_top = -1.0
+offset_right = -5.0
+offset_bottom = 25.0
+text = "Kinetic:"
+
+[node name="PElabel" type="Label" parent="."]
+offset_left = 92.0
+offset_top = 61.0
+offset_right = 167.0
+offset_bottom = 87.0
+text = "Potential"
+
+[node name="PEValue" type="Label" parent="PElabel"]
+layout_mode = 0
+offset_left = -76.0
+offset_right = -1.0
+offset_bottom = 26.0
+text = "Potential:"
+
+[node name="TotalElabel" type="Label" parent="."]
+offset_left = 117.0
+offset_top = 15.0
+offset_right = 218.0
+offset_bottom = 41.0
+text = "Total Energy"
+
+[node name="TotalValue" type="Label" parent="TotalElabel"]
+layout_mode = 0
+offset_left = -102.0
+offset_right = -1.0
+offset_bottom = 26.0
+text = "Total Energy:"
