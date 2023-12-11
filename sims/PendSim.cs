@@ -128,7 +128,8 @@ public class PendSim : Simulator
     {
         get{
             // PE = m*g*y + 1/2 * k * (L-L0)^2
-            return( (-m*g*x[2]) + (0.5*k*(L-L_0)*(L-L_0)) );
+            L = Math.Sqrt( (x[0]*x[0]) + (x[2]*x[2]) + (x[4]*x[4]) );
+            return( (m*g*x[2]) + (0.5*k*(L-L_0)*(L-L_0)) );
         }
     }
 
